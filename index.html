@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>منظم الأدوية الذكي</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <h1>منظم الأدوية الذكي</h1>
+        <button class="toggle-mode" onclick="toggleDarkMode()">🌙</button>
+    </header>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="openTab('medicines')">أدويتي</div>
+            <div class="tab" onclick="openTab('add-medicine')">إضافة دواء</div>
+            <div class="tab" onclick="openTab('settings')">الإعدادات</div>
+        </div>
+
+        <!-- تبويب قائمة الأدوية -->
+        <div id="medicines" class="tab-content active">
+            <h2>قائمة الأدوية</h2>
+            <div id="medicines-list">
+                <!-- ستُملأ تلقائيًا من JavaScript -->
+            </div>
+        </div>
+
+        <!-- تبويب إضافة دواء -->
+        <div id="add-medicine" class="tab-content">
+            <h2>إضافة أو تعديل دواء</h2>
+            <form id="medicine-form">
+                <!-- هذا الحقل لتخزين ID الدواء عند التعديل -->
+                <input type="hidden" id="medicine-id" />
+
+                <div class="camera-container" id="camera-view">
+                    <div id="camera-placeholder">
+                        <p>الكاميرا غير متاحة</p>
+                    </div>
+                    <video id="camera-preview" class="hidden camera-preview" autoplay playsinline></video>
+                    <img id="captured-image" class="hidden camera-preview" alt="الصورة الملتقطة" />
+                    <div class="camera-controls hidden" id="camera-controls">
+                        <button type="button" class="capture-btn" onclick="captureImage()"></button>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="medicine-name">اسم الدواء</label>
+                    <input type="text" id="medicine-name" required />
+                </div>
+
+                <div>
+                    <label for="medicine-dosage">الجرعة</label>
+                    <input type="text" id="medicine-dosage" placeholder="مثال: 500 مجم" required />
+                </div>
+
+                <div>
+                    <label for="medicine-type">نوع الدواء</label>
+                    <select id="medicine-type" required>
+                        <option value="أقراص">أقراص</option>
+                        <option value="كبسولات">كبسولات</option>
+                        <option value="شراب">شراب</option>
+                        <option value="حقن">حقن</option>
+                        <option value="مرهم">مرهم</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>مواعيد التذكير</label>
+                    <div id="reminder-times"></div>
+                    <button type="button" onclick="addReminderTime()">إضافة وقت جديد</button>
+                </div>
+
+                <div>
+                    <label for="medicine-notes">ملاحظات</label>
+                    <textarea id="medicine-notes" rows="3"></textarea>
+                </div>
+
+                <button type="submit">💾 حفظ الدواء</button>
+            </form>
+        </div>
+
+        <!-- تبويب الإعدادات -->
+        <div id="settings" class="tab-content">
+            <h2>الإعدادات</h2>
+
+            <div>
+                <label>
+                    <input type="checkbox" id="notifications-enabled" checked />
+                    تمكين التنبيهات
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    <input type="checkbox" id="family-alerts" />
+                    إرسال تنبيه لأحد أفراد العائلة عند تفويت جرعة
+                </label>
+            </div>
+
+            <div>
+                <label for="notification-sound">اختيار نغمة التنبيه:</label>
+                <input type="file" id="notification-sound" accept="audio/*" />
+            </div>
+
+            <div>
+                <audio id="custom-audio" class="hidden" controls></audio>
+            </div>
+
+            <button onclick="saveSettings()">💾 حفظ الإعدادات</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
